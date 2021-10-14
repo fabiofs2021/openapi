@@ -17,13 +17,17 @@ jobs:
 
     steps:
 
-      - uses: actions/cache@v1
-        with:
-          path: source/swaggers
-          key: ${{ runner.os }}-${{ hashFiles('**/source') }}
+      #- uses: actions/cache@v1
+      #  with:
+      #    path: source/swaggers
+      #    key: ${{ runner.os }}-${{ hashFiles('**/source') }}
+#
+      #- run: bundle config set deployment 'true'
+      #- run: bundle install
+      #- run: bundle exec middleman build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./documentation/swaggers
+          publish_dir: ./documentation/source/swaggers
