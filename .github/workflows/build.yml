@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build SlateDocs
+    name: BuildSwaggers
     runs-on: ubuntu-latest
     defaults:
       run:
