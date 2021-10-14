@@ -31,8 +31,18 @@ swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile source
 # Generate dictionary
 ##sh ./build-dictionary.sh
 
+# Open Banking Fase 2
 sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/accounts/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/consents/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/credit_cards/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/customers/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/financings/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/invoice_financings/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/loans/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/resources/doc/*.json
+sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/unarranged_accounts_overdraft/doc/*.json
 
+# Open Banking Fase 3
 sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/payments/doc/*.json
 
 # Validations
