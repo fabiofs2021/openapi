@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -16,112 +16,6 @@ jobs:
     #  ruby-version: 2.5
 
     steps:
-      #- uses: actions/checkout@v2
-      #- name: Set up Ruby
-      #  uses: ruby/setup-ruby@v1
-      #  with:
-      #    ruby-version: ${{ env.ruby-version }}
-#
-      #- uses: actions/cache@v1
-      #  with:
-      #    path: vendor/bundle
-      #    key: gems-${{ runner.os }}-${{ env.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-#
-      #- run: npm install -g widdershins
-      - run: npm install -g @apidevtools/swagger-cli
-
-      ###
-      #ATENÇÃO: não é parar ligar a automação da Fase 1 sem a autorização do comitê de Open Banking
-      # Open Banking Fase 1
-      #- run: swagger-cli bundle source/swagger/parts/_open_banking_fase1_apis_part.yml --outfile source/swagger/swagger_open_banking_fase1_apis.yml --type=yaml
-      ###
-      
-      # Open Banking Fase 2
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile source/swaggers/accounts/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_consents_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_consents_apis_part.yml --outfile source/swaggers/consents/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_credit_cards_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_credit_cards_apis_part.yml --outfile source/swaggers/credit_cards/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_customers_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_customers_apis_part.yml --outfile source/swaggers/customers/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_financings_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_financings_apis_part.yml --outfile source/swaggers/financings/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_invoice_financings_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_invoice_financings_apis_part.yml --outfile source/swaggers/invoice_financings/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_loans_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_loans_apis_part.yml --outfile source/swaggers/loans/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_resources_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_resources_apis_part.yml --outfile source/swaggers/resources/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml --outfile source/swaggers/unarranged_accounts_overdraft/doc/${VERSION}.json --type=json
-
-
-      # Open Banking Fase 3
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile source/swaggers/payments/doc/${VERSION}.json --type=json
-
-
-      ##- run: ./build-dictionary.sh
-      ##- run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swagger/swagger_*
-
-      # Open Banking Fase 2
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/accounts/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/consents/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/credit_cards/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/customers/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/financings/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/invoice_financings/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/loans/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/resources/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/unarranged_accounts_overdraft/doc/*.json
-
-      # Open Banking Fase 3
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swaggers/payments/doc/*.json
-
-      # Validations
-      # Open Banking Fase 2
-      - run: swagger-cli validate source/swaggers/accounts/doc/*.json
-      - run: swagger-cli validate source/swaggers/consents/doc/*.json
-      - run: swagger-cli validate source/swaggers/credit_cards/doc/*.json
-      - run: swagger-cli validate source/swaggers/customers/doc/*.json
-      - run: swagger-cli validate source/swaggers/financings/doc/*.json
-      - run: swagger-cli validate source/swaggers/invoice_financings/doc/*.json
-      - run: swagger-cli validate source/swaggers/loans/doc/*.json
-      - run: swagger-cli validate source/swaggers/resources/doc/*.json
-      - run: swagger-cli validate source/swaggers/unarranged_accounts_overdraft/doc/*.json
-      - run: spectral lint source/swaggers/accounts/doc/*.json
-      - run: spectral lint source/swaggers/consents/doc/*.json
-      - run: spectral lint source/swaggers/credit_cards/doc/*.json
-      - run: spectral lint source/swaggers/customers/doc/*.json
-      - run: spectral lint source/swaggers/financings/doc/*.json
-      - run: spectral lint source/swaggers/invoice_financings/doc/*.json
-      - run: spectral lint source/swaggers/loans/doc/*.json
-      - run: spectral lint source/swaggers/resources/doc/*.json
-      - run: spectral lint source/swaggers/unarranged_accounts_overdraft/doc/*.json
-      # Open Banking Fase 3
-      - run: swagger-cli validate source/swaggers/payments/doc/*.json
-      - run: spectral lint source/swaggers/payments/doc/*.json
-
-
-      - uses: actions/cache@v1
-        with:
-          path: build
-          key: ${{ runner.os }}-${{ hashFiles('**/source') }}
-
-      #- run: bundle config set deployment 'true'
-      #- run: bundle install
-      #- run: bundle exec middleman build
-
-      # Run Spectral
-      - uses: stoplightio/spectral-action@v0.7.0
-        with:
-          file_glob: 'documentation/source/swaggers/*.*'    
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
