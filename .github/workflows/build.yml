@@ -16,8 +16,8 @@ jobs:
     defaults:
       run:
         working-directory: documentation
-    env:
-      ruby-version: 2.5
+    #env:
+    #  ruby-version: 2.5
 
     steps:
      # - uses: actions/checkout@v2
