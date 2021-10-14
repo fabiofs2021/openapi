@@ -16,6 +16,12 @@ jobs:
     #  ruby-version: 2.5
 
     steps:
+
+      - uses: actions/cache@v1
+        with:
+          path: source/swaggers
+          key: ${{ runner.os }}-${{ hashFiles('**/source') }}
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
