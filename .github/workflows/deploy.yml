@@ -12,14 +12,27 @@ jobs:
     defaults:
       run:
         working-directory: documentation
-    #env:
-    #  ruby-version: 2.5
-
-    
+    env:
+      ruby-version: 2.5
 
     steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.ruby-version }}
 
-      - run: pwd
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: gems-${{ runner.os }}-${{ env.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - run: npm install -g @apidevtools/swagger-cli 
+
       - run: ls -la
 
       #- uses: actions/cache@v1
