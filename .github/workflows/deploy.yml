@@ -29,10 +29,10 @@ jobs:
 
       - run: ls -la
 
-      #- uses: actions/cache@v1
-      #  with:
-      #    path: source/swaggers
-      #    key: ${{ runner.os }}-${{ hashFiles('**/source') }}
+      - uses: actions/cache@v1
+        with:
+          path: source/swaggers
+          key: ${{ runner.os }}-${{ hashFiles('**/source') }}
 #
       #- run: bundle config set deployment 'true'
       #- run: bundle install
