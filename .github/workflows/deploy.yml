@@ -15,7 +15,12 @@ jobs:
     #env:
     #  ruby-version: 2.5
 
+    
+
     steps:
+
+      - run: pwd
+      - run: ls -la
 
       #- uses: actions/cache@v1
       #  with:
@@ -32,5 +37,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./documentation/source/swaggers
 
-      - run: pwd
-      - run: ls -la
+
