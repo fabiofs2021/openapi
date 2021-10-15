@@ -98,18 +98,9 @@ jobs:
       - run: swagger-cli validate source/swaggers/loans/doc/*.json
       - run: swagger-cli validate source/swaggers/resources/doc/*.json
       - run: swagger-cli validate source/swaggers/unarranged_accounts_overdraft/doc/*.json
-      - run: spectral lint source/swaggers/accounts/doc/*.json
-      - run: spectral lint source/swaggers/consents/doc/*.json
-      - run: spectral lint source/swaggers/credit_cards/doc/*.json
-      - run: spectral lint source/swaggers/customers/doc/*.json
-      - run: spectral lint source/swaggers/financings/doc/*.json
-      - run: spectral lint source/swaggers/invoice_financings/doc/*.json
-      - run: spectral lint source/swaggers/loans/doc/*.json
-      - run: spectral lint source/swaggers/resources/doc/*.json
-      - run: spectral lint source/swaggers/unarranged_accounts_overdraft/doc/*.json
+      
       # Open Banking Fase 3
       - run: swagger-cli validate source/swaggers/payments/doc/*.json
-      - run: spectral lint source/swaggers/payments/doc/*.json
 
 
       #- uses: actions/cache@v1
