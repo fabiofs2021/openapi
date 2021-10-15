@@ -16,21 +16,21 @@ jobs:
     defaults:
       run:
         working-directory: documentation
-    #env:
-    #  ruby-version: 2.5
+    env:
+      ruby-version: 2.5
 
     steps:
-     # - uses: actions/checkout@v2
-     # - name: Set up Ruby
-     #   uses: ruby/setup-ruby@v1
-     #   with:
-     #     ruby-version: ${{ env.ruby-version }}
-#
-     # - uses: actions/cache@v1
-     #   with:
-     #     path: vendor/bundle
-     #     key: gems-${{ runner.os }}-${{ env.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
-#
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.ruby-version }}
+
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: gems-${{ runner.os }}-${{ env.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
@@ -45,6 +45,7 @@ jobs:
 
       # Open Banking Fase 2
       - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}')
+      - run: echo "${VERSION}......------"
       - run: swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile source/swaggers/accounts/doc/${VERSION}.json --type=json
       - run: VERSION=$(grep 'version:' source/swagger/parts/_consents_apis_part.yml | tail -n1 | awk '{ print $2}')
       - run: swagger-cli bundle source/swagger/parts/_consents_apis_part.yml --outfile source/swaggers/consents/doc/${VERSION}.json --type=json
@@ -111,14 +112,11 @@ jobs:
       - run: spectral lint source/swaggers/payments/doc/*.json
 
 
-      - uses: actions/cache@v1
-        with:
-          path: build
-          key: ${{ runner.os }}-${{ hashFiles('**/source') }}
+      #- uses: actions/cache@v1
+      #  with:
+      #    path: build
+      #    key: ${{ runner.os }}-${{ hashFiles('**/source') }}
 
-      #- run: bundle config set deployment 'true'
-      #- run: bundle install
-      #- run: bundle exec middleman build
 
       # Run Spectral
       - uses: stoplightio/spectral-action@v0.7.0
