@@ -25,7 +25,7 @@ swagger-cli bundle source/swagger/parts/_unarranged_accounts_overdraft_apis_part
 
 # Open Banking Fase 3
 VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}')
-swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/swagger/payments/doc/${VERSION}.json --type=json
+swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/swagger/payments/doc/${VERSION}.json --type=json && cp build/swagger/payments/doc/${VERSION}.json versions/swagger/payments/doc/${VERSION}.json
 
 
 # Generate dictionary
