@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - '!main'
+      - main
 
 jobs:
   deploy:
@@ -57,7 +57,7 @@ jobs:
       #- run: bundle exec middleman build
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages-dev@v3
+        uses: peaceiris/actions-gh-dev@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./documentation/source/swaggers
