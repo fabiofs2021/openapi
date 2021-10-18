@@ -29,6 +29,9 @@ swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/
 
 
 # Generate dictionary
+# linux:
+./build-dictionary.sh
+# windows:
 ##sh ./build-dictionary.sh
 
 # Open Banking Fase 2

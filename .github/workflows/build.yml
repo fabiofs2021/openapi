@@ -69,45 +69,38 @@ jobs:
       - run: VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}')
       - run: swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/swagger/payments/doc/${VERSION}.json --type=json
 
-
-      ##- run: ./build-dictionary.sh
-      ##- run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swagger/swagger_*
-
+      # Genaration Dictionaries ...
+      - run: ./build-dictionary.sh
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swagger/swagger_*
+      
       # Open Banking Fase 2
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/accounts/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/consents/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/credit_cards/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/customers/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/financings/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/invoice_financings/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/loans/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/resources/doc/*.json
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/unarranged_accounts_overdraft/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/accounts/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/consents/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/credit_cards/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/customers/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/financings/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/invoice_financings/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/loans/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/resources/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/unarranged_accounts_overdraft/doc/*.json
 
       # Open Banking Fase 3
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swaggers/payments/doc/*.json
+      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/payments/doc/*.json
 
       # Validations
       # Open Banking Fase 2
-      - run: swagger-cli validate build/swaggers/accounts/doc/*.json
-      - run: swagger-cli validate build/swaggers/consents/doc/*.json
-      - run: swagger-cli validate build/swaggers/credit_cards/doc/*.json
-      - run: swagger-cli validate build/swaggers/customers/doc/*.json
-      - run: swagger-cli validate build/swaggers/financings/doc/*.json
-      - run: swagger-cli validate build/swaggers/invoice_financings/doc/*.json
-      - run: swagger-cli validate build/swaggers/loans/doc/*.json
-      - run: swagger-cli validate build/swaggers/resources/doc/*.json
-      - run: swagger-cli validate build/swaggers/unarranged_accounts_overdraft/doc/*.json
+      - run: swagger-cli validate build/swagger/accounts/doc/*.json
+      - run: swagger-cli validate build/swagger/consents/doc/*.json
+      - run: swagger-cli validate build/swagger/credit_cards/doc/*.json
+      - run: swagger-cli validate build/swagger/customers/doc/*.json
+      - run: swagger-cli validate build/swagger/financings/doc/*.json
+      - run: swagger-cli validate build/swagger/invoice_financings/doc/*.json
+      - run: swagger-cli validate build/swagger/loans/doc/*.json
+      - run: swagger-cli validate build/swagger/resources/doc/*.json
+      - run: swagger-cli validate build/swagger/unarranged_accounts_overdraft/doc/*.json
       
       # Open Banking Fase 3
-      - run: swagger-cli validate build/swaggers/payments/doc/*.json
-
-
-      #- uses: actions/cache@v1
-      #  with:
-      #    path: build
-      #    key: ${{ runner.os }}-${{ hashFiles('**/source') }}
-
+      - run: swagger-cli validate build/swagger/payments/doc/*.json
 
       # Run Spectral
       - uses: stoplightio/spectral-action@v0.7.0
