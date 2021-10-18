@@ -23,10 +23,6 @@ VERSION=$(grep 'version:' source/swagger/parts/_unarranged_accounts_overdraft_ap
 swagger-cli bundle source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml --outfile build/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json --type=json && cp build/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json versions/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json
 
 
-# Copiando os arquivos para a pasta versions:
-cp build/swagger/accounts/doc/*.json
-
-
 # Open Banking Fase 3
 VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}')
 swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/swagger/payments/doc/${VERSION}.json --type=json
