@@ -34,8 +34,8 @@ jobs:
       - run: npm install -g @apidevtools/swagger-cli 
 
       # Open Banking Fase 2
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}')
-      - run: swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile source/swaggers/accounts/doc/${VERSION}.json --type=json
+      ##- run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}')
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile source/swaggers/accounts/doc/${VERSION}.json --type=json
       - run: VERSION=$(grep 'version:' source/swagger/parts/_consents_apis_part.yml | tail -n1 | awk '{ print $2}')
       - run: swagger-cli bundle source/swagger/parts/_consents_apis_part.yml --outfile source/swaggers/consents/doc/${VERSION}.json --type=json
       - run: VERSION=$(grep 'version:' source/swagger/parts/_credit_cards_apis_part.yml | tail -n1 | awk '{ print $2}')
