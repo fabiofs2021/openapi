@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Github pages dev
+    name: Deploy Github pages
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -57,7 +57,7 @@ jobs:
       #- run: bundle exec middleman build
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages-dev@v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./documentation/source/swaggers
