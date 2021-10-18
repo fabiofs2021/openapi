@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-chmod + source/scripts/dictionary_generator
+chmod + dictionary_generator
 BUND_PATH=source/dictionary/bundles
 DICT_PATH=source/dictionary
 mkdir -p $BUND_PATH
@@ -32,7 +32,7 @@ function generate() {
       -r "source/swagger/parts/_${API}_part.yml" \
       --outfile "${BUND_PATH}/swagger_${API}.yaml" --type=yaml
 
-    ./source/scripts/dictionary_generator ${OPTIONS- } \
+    ./dictionary_generator ${OPTIONS- } \
       -f "${BUND_PATH}/swagger_${API}.yaml" \
       -o $DICT_PATH
   done

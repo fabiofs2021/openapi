@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - '!main'
+      - OPB_Homologacao
 
 jobs:
   deploy:
@@ -34,31 +34,40 @@ jobs:
       - run: npm install -g @apidevtools/swagger-cli 
 
       # Open Banking Fase 2
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile source/swaggers/accounts/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_consents_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_consents_apis_part.yml --outfile source/swaggers/consents/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_credit_cards_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_credit_cards_apis_part.yml --outfile source/swaggers/credit_cards/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_customers_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_customers_apis_part.yml --outfile source/swaggers/customers/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_financings_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_financings_apis_part.yml --outfile source/swaggers/financings/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_invoice_financings_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_invoice_financings_apis_part.yml --outfile source/swaggers/invoice_financings/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_loans_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_loans_apis_part.yml --outfile source/swaggers/loans/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_resources_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_resources_apis_part.yml --outfile source/swaggers/resources/doc/${VERSION}.json --type=json
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml --outfile source/swaggers/unarranged_accounts_overdraft/doc/${VERSION}.json --type=json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_accounts_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_accounts_apis_part.yml --outfile build/swagger/accounts/doc/${VERSION}.json --type=json && cp build/swagger/accounts/doc/${VERSION}.json versions/swagger/accounts/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_consents_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_consents_apis_part.yml --outfile build/swagger/consents/doc/${VERSION}.json --type=json && cp build/swagger/consents/doc/${VERSION}.json versions/swagger/consents/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_credit_cards_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_credit_cards_apis_part.yml --outfile build/swagger/credit_cards/doc/${VERSION}.json --type=json && cp build/swagger/credit_cards/doc/${VERSION}.json versions/swagger/credit_cards/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_customers_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_customers_apis_part.yml --outfile build/swagger/customers/doc/${VERSION}.json --type=json && cp build/swagger/customers/doc/${VERSION}.json versions/swagger/customers/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_financings_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_financings_apis_part.yml --outfile build/swagger/financings/doc/${VERSION}.json --type=json && cp build/swagger/financings/doc/${VERSION}.json versions/swagger/financings/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_invoice_financings_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_invoice_financings_apis_part.yml --outfile build/swagger/invoice_financings/doc/${VERSION}.json --type=json && cp build/swagger/invoice_financings/doc/${VERSION}.json versions/swagger/invoice_financings/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_loans_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_loans_apis_part.yml --outfile build/swagger/loans/doc/${VERSION}.json --type=json && cp build/swagger/loans/doc/${VERSION}.json versions/swagger/loans/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_resources_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_resources_apis_part.yml --outfile build/swagger/resources/doc/${VERSION}.json --type=json && cp build/swagger/resources/doc/${VERSION}.json versions/swagger/resources/doc/${VERSION}.json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_unarranged_accounts_overdraft_apis_part.yml --outfile build/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json --type=json && cp build/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json versions/swagger/unarranged_accounts_overdraft/doc/${VERSION}.json
       
       # Open Banking Fase 3
-      - run: VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile source/swaggers/payments/doc/${VERSION}.json --type=json
+      - run: VERSION=$(grep 'version:' source/swagger/parts/_payments_apis_part.yml | tail -n1 | awk '{ print $2}') && swagger-cli bundle source/swagger/parts/_payments_apis_part.yml --outfile build/swagger/payments/doc/${VERSION}.json --type=json && cp build/swagger/payments/doc/${VERSION}.json versions/swagger/payments/doc/${VERSION}.json
 
-      #- uses: actions/cache@v1
-      #  with:
-      #    path: source/swaggers
-      #    key: ${{ runner.os }}-${{ hashFiles('**/source') }}
-#
-      #- run: bundle config set deployment 'true'
-      #- run: bundle install
-      #- run: bundle exec middleman build
+      # Genaration Dictionaries ...
+      - run: ./build-dictionary.sh
+
+      # Validations ...
+      # Open Banking Fase 2
+      - run: swagger-cli validate build/swagger/accounts/doc/*.json
+      - run: swagger-cli validate build/swagger/consents/doc/*.json
+      - run: swagger-cli validate build/swagger/credit_cards/doc/*.json
+      - run: swagger-cli validate build/swagger/customers/doc/*.json
+      - run: swagger-cli validate build/swagger/financings/doc/*.json
+      - run: swagger-cli validate build/swagger/invoice_financings/doc/*.json
+      - run: swagger-cli validate build/swagger/loans/doc/*.json
+      - run: swagger-cli validate build/swagger/resources/doc/*.json
+      - run: swagger-cli validate build/swagger/unarranged_accounts_overdraft/doc/*.json
+      
+      # Open Banking Fase 3
+      - run: swagger-cli validate build/swagger/payments/doc/*.json
+
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages-dev@v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./documentation/source/swaggers
-
+          publish_dir: ./documentation/versions/swagger
