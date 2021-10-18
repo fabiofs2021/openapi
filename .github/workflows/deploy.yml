@@ -49,7 +49,6 @@ jobs:
 
       # Genaration Dictionaries ...
       - run: ./build-dictionary.sh
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swagger/swagger_*
 
       # Validations ...
       # Open Banking Fase 2

@@ -71,8 +71,7 @@ jobs:
 
       # Genaration Dictionaries ...
       - run: ./build-dictionary.sh
-      - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' source/swagger/swagger_*
-      
+
       # Open Banking Fase 2
       - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/accounts/doc/*.json
       - run: sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' build/swagger/consents/doc/*.json
