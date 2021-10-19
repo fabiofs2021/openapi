@@ -84,7 +84,7 @@ jobs:
       - run: swagger-cli validate build/swagger/invoice-financings/doc/*.json
       - run: swagger-cli validate build/swagger/loans/doc/*.json
       - run: swagger-cli validate build/swagger/resources/doc/*.json
-      - run: swagger-cli validate build/swagger/unarranged-accounts-overdraft/*.json
+      - run: swagger-cli validate build/swagger/unarranged-accounts-overdraft/doc/*.json
       
       # Open Banking Fase 3
       - run: swagger-cli validate build/swagger/payments/doc/*.json
